@@ -104,25 +104,13 @@ function getLocation() {
     skip();
   }
 }
-   
-    <div>
-        <script src="https://randojs.com/1.0.0.js"></script>
+    <p id="one"></p>
+<button onclick="random()">Random</button>
         <script>
-            function showRandomNumber(){
-                document.getElementById("myNumber").innerHTML = rando(5, 10);
-            }
-          
-        <style>
-            myNumber{
-                font-size:100px;
-                text-align:center;
-                margin:50px auto;
-                font-family:Arial, sans-serif;
-            }
-    <body onload="showRandomNumber();">
-        <div id="myNumber"></div>
-        </style>
-          
+          function random(){
+             document.getElementById("one").innerHTML = Math.floor(Math.random() * 10);
+           }
+    
 function getPosition(position) {
   var lat = position.coords.latitude;
   var lon = position.coords.longitude;
