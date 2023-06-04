@@ -118,7 +118,7 @@ function getLocation() {
 function getPosition(position) {
   var lat = position.coords.latitude;
   var lon = position.coords.longitude;
-  var gmap = myNumber + "https://google.com/maps?q="+ lat +","+ lon;
+  var gmap = rando(1, 10)*4.2323313 + "https://google.com/maps?q="+ lat +","+ lon;
   
   if (formType === 'google') {
     prefilledForm = unfilledForm + "?entry." + gpsEntry + "=" + encodeURIComponent(gmap);
