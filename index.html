@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -17,7 +18,7 @@
       font-family: 'Roboto', sans-serif;
       font-weight: 300;
     }
-    
+
     .container-center {
       display: flex;
       flex-direction: column;
@@ -26,27 +27,28 @@
       min-height: 100vh;
       text-align: center;
     }
-.btn-container {
+
+    .btn-container {
       display: flex;
       flex-direction: column;
     }
-    
+
     .btn {
       min-width: 88px;
       font-weight: 400;
       text-transform: uppercase;
       letter-spacing: inherit;
     }
-    
+
     .btn-primary {
       background-color: #5677fc;
     }
-    
+
     .btn-primary:hover {
       background-color: #4e6cef;
     }
 
-.btn-custom {
+    .btn-custom {
       color: #777;
       text-decoration: none;
     }
@@ -54,90 +56,82 @@
     .btn-custom:hover,
     .btn-custom:focus {
       color: #555;
-
     }
-    #myNumber{
-      font-size:100px;
-      text-align:center;
-      margin:50px auto;
-      font-family:Arial, sans-serif;
+
+    #myNumber {
+      font-size: 100px;
+      text-align: center;
+      margin: 50px auto;
+      font-family: Arial, sans-serif;
     }
   </style>
 </head>
+
 <body>
-  <body onload="showRandomNumber();">
-     <div id="myNumber"></div>
+  <div id="myNumber"></div>
   <div class="container-center">
     <h4 id="note">Formulário para registro de presença nos eixos Transversais do Programa de Residência.</h4>
     <br>
     <div class="btn-container">
-<button type="button" class="btn btn-primary" onclick="getLocation()">Registrar minha presença!</button>
+      <button type="button" class="btn btn-primary" onclick="registerAttendance()">Registrar minha presença!</button>
     </div>
   </div>
- 
+
   <!-- Import Bootstrap JavaScript -->
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
   <script src="https://randojs.com/1.0.0.js"></script>
-  
+
   <!-- Custom Functions -->
   <script>
-  const queryString = window.location.search;
-  const urlParams = new URLSearchParams(queryString);
-  const note = urlParams.get('note');
+    const queryString = new URLSearchParams(window.location.search);
+    const note = queryString.get('note');
+    const formId = queryString.get('formId');
+    const gpsEntry = queryString.get('gpsEntry');
+    const formType = queryString.get('formType');
+    let unfilledForm, prefilledForm;
 
-  window.onload = function() {
-    if (note !== null) {
-          document.getElementById("note").innerText = decodeURIComponent(note);
+    window.onload = function () {
+      if (note !== null) {
+        document.getElementById("note").innerText = decodeURIComponent(note);
+      }
     }
-  }
 
-  const formId = urlParams.get('formId');
-  const gpsEntry = urlParams.get('gpsEntry');
-  const formType = urlParams.get('formType');
-  let unfilledForm, prefilledForm;
-    
-  if (formType === 'google') {
-    unfilledForm = "https://docs.google.com/forms/d/e/" + formId + "/viewform";
-  } else if (formType === 'tally') {
-    unfilledForm = "https://tally.so/r/" + formId;
-  } else {
-    console.error('Invalid form type. Please provide a valid formType query parameter (either "google" or "tally").');
-  }
- 
-function getLocation() {
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(getPosition);
-  } else { 
-    skip();
-  }
-}
-    function showRandomNumber(){
+    function registerAttendance() {
+      getLocation();
+    }
 
-    var myNumber = = rando(5, 10)*4.2323313;
-            }
-    
-function getPosition(position) {
-  var lat = position.coords.latitude;
-  var lon = position.coords.longitude;
-  var gmap = myNumber + "https://google.com/maps?q="+ lat +","+ lon;
-  
-  if (formType === 'google') {
-    prefilledForm = unfilledForm + "?entry." + gpsEntry + "=" + encodeURIComponent(gmap);
-  } else if (formType === 'tally') {
-    prefilledForm = unfilledForm + "?" + gpsEntry + "=" + encodeURIComponent(gmap);
-  } else {
-    console.error('Invalid form type. Please provide a valid formType query parameter (either "google" or "tally").');
-  }
-    
-  
-  location.href = prefilledForm;
-}
-  
-  function skip(){
-    location.href = unfilledForm;
-  }
-  
-</script>
+    function getLocation() {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(getPosition);
+      } else {
+        skip();
+      }
+    }
+
+    function getPosition(position) {
+      const lat = position.coords.latitude;
+      const lon = position.coords.longitude;
+      const gmap = `https://google.com/maps?q=${lat},${lon}`;
+
+      if (formType === 'google') {
+        unfilledForm = `https://docs.google.com/forms/d/e/${formId}/viewform`;
+        prefilledForm = `${unfilledForm}?entry.${gpsEntry}=${encodeURIComponent(gmap)}`;
+      } else if (formType === 'tally') {
+        unfilledForm = `https://tally.so/r/${formId}`;
+        prefilledForm = `${unfilledForm}?${gpsEntry}=${encodeURIComponent(gmap)}`;
+      } else {
+        console.error('Invalid form type. Please provide a valid formType query parameter (either "google" or "tally").');
+        return;
+      }
+
+      location.href = prefilledForm;
+    }
+
+    function skip() {
+      location.href = unfilledForm;
+    }
+  </script>
 </body>
+
 </html>
