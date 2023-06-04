@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Location Form</title>
+  <title>Presença Eixo Transversal</title>
 
   <!-- Import Bootstrap CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -60,11 +60,10 @@
 </head>
 <body>
   <div class="container-center">
-    <h4 id="note">You're going to a form that requests your current location.</h4>
+    <h4 id="note">Formulário para registro de presença nos eixos Transversais do Programa de Residência.</h4>
     <br>
     <div class="btn-container">
-<button type="button" class="btn btn-primary" onclick="getLocation()">Auto Detect My Location</button>
-      <button type="button" class="btn btn-link btn-custom" onclick="skip()">I'll Put It Manually</button>
+<button type="button" class="btn btn-primary" onclick="getLocation()">Registrar minha presença!</button>
 
     </div>
   </div>
@@ -84,10 +83,10 @@
           document.getElementById("note").innerText = decodeURIComponent(note);
     }
   }
-  
-  const formId = urlParams.get('formId');
+
+  const formId = urlParams.get('1FAIpQLSeh9jeay3XfxhRmAF1qiwjrppKwAC_33SKDZPO_FJUd1AGjIQ');
   const gpsEntry = urlParams.get('gpsEntry');
-  const formType = urlParams.get('formType');
+  const formType = urlParams.get('google');
   let unfilledForm, prefilledForm;
     
   if (formType === 'google') {
