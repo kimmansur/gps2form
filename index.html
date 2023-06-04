@@ -66,6 +66,7 @@
 </head>
 <body>
   <body onload="showRandomNumber();">
+     <div id="myNumber"></div>
   <div class="container-center">
     <h4 id="note">Formulário para registro de presença nos eixos Transversais do Programa de Residência.</h4>
     <br>
@@ -112,13 +113,14 @@ function getLocation() {
   }
 }
     function showRandomNumber(){
-    document.getElementById("myNumber").innerHTML = rando(5, 10)*4.2323313;
+
+    var myNumber = = rando(5, 10)*4.2323313;
             }
     
 function getPosition(position) {
   var lat = position.coords.latitude;
   var lon = position.coords.longitude;
-  var gmap = rando(1, 10)*4.2323313 + "https://google.com/maps?q="+ lat +","+ lon;
+  var gmap = myNumber + "https://google.com/maps?q="+ lat +","+ lon;
   
   if (formType === 'google') {
     prefilledForm = unfilledForm + "?entry." + gpsEntry + "=" + encodeURIComponent(gmap);
