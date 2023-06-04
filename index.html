@@ -56,21 +56,29 @@
       color: #555;
 
     }
+    #myNumber{
+      font-size:100px;
+      text-align:center;
+      margin:50px auto;
+      font-family:Arial, sans-serif;
+    }
   </style>
 </head>
 <body>
+  <body onload="showRandomNumber();">
+    <div id="myNumber"></div>
   <div class="container-center">
     <h4 id="note">Formulário para registro de presença nos eixos Transversais do Programa de Residência.</h4>
     <br>
     <div class="btn-container">
 <button type="button" class="btn btn-primary" onclick="getLocation(); random();">Registrar minha presença!</button>
-<p id="one"></p>
     </div>
   </div>
  
   <!-- Import Bootstrap JavaScript -->
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
+  <script src="https://randojs.com/1.0.0.js"></script>
   
   <!-- Custom Functions -->
   <script>
@@ -104,10 +112,9 @@ function getLocation() {
     skip();
   }
 }
-
- function random(){
-   document.getElementById("one").innerHTML = Math.floor(Math.random() * 10);
-           }
+    function showRandomNumber(){
+    document.getElementById("myNumber").innerHTML = rando(5, 10);
+            }
     
 function getPosition(position) {
   var lat = position.coords.latitude;
