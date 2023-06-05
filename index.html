@@ -17,20 +17,29 @@
     body {
       font-family: 'Roboto', sans-serif;
       font-weight: 300;
+      margin: 0;
+      padding: 0;
     }
 
-    .container-center {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
+    .container {
+      padding-top: 20px;
+    }
+
+    .header-image {
+      width: 100%;
+      height: auto;
+      max-width: 100%;
+    }
+
+    .content {
       text-align: center;
+      padding: 20px;
     }
 
     .btn-container {
       display: flex;
-      flex-direction: column;
+      justify-content: center;
+      align-items: center;
     }
 
     .btn {
@@ -57,22 +66,20 @@
     .btn-custom:focus {
       color: #555;
     }
-
-    .header-image {
-      width: 100%;
-      max-width: 800px;
-    }
   </style>
 </head>
 
 <body>
-  <div class="container-center">
-    <img class="header-image" src="https://drive.google.com/uc?export=view&id=1EUVLYw1FLRIzr18brkOiYYQrK-vM8yH8" alt="Header Image">
-    <h4 id="note">Formulário para registro de presença nos eixos Transversais do Programa de Residência.</h4>
-    <p>Por favor, autorize o acesso à sua localização antes de prosseguir:</p>
-    <br>
-    <div class="btn-container">
-      <button type="button" class="btn btn-primary" onclick="requestLocation()">Registrar minha presença!</button>
+  <div class="container">
+    <div class="header">
+      <img class="header-image" src="https://drive.google.com/uc?export=view&id=1EUVLYw1FLRIzr18brkOiYYQrK-vM8yH8" alt="Header Image">
+    </div>
+    <div class="content">
+      <h4 id="note">Formulário para registro de presença nos eixos Transversais do Programa de Residência.</h4>
+      <p>Por favor, autorize o acesso à sua localização antes de prosseguir:</p>
+      <div class="btn-container">
+        <button type="button" class="btn btn-primary" onclick="requestLocation()">Registrar minha presença!</button>
+      </div>
     </div>
   </div>
 
