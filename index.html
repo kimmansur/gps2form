@@ -86,7 +86,7 @@
 
   <div id="customAlert" class="custom-alert" style="display: none;">
     <p>Por favor, autorize o acesso à sua localização para registrar sua presença.</p>
-    <p>Redirecionando em <span id="timer">5</span> segundos...</p>
+    <p>Redirecionando em <span id="timer">10</span> segundos...</p>
   </div>
 
   <!-- Import Bootstrap JavaScript -->
@@ -123,7 +123,7 @@
       const customAlert = document.getElementById('customAlert');
       customAlert.style.display = 'block';
 
-      let countdown = 5;
+      let countdown = 10;
       const timer = document.getElementById('timer');
       timer.innerText = countdown;
 
@@ -133,7 +133,7 @@
 
         if (countdown === 0) {
           clearInterval(countdownInterval);
-          window.location.href = 'https://www.example.com'; // Redirecionar para outra página
+          window.location.href = 'http://semusvilhena.com/gep/residencias/; // Redirecionar para outra página
         }
       }, 1000);
     }
