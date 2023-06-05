@@ -132,26 +132,32 @@
 
   <!-- Custom Functions -->
   <script>
-    const queryString = new URLSearchParams(window.location.search);
-    const note = queryString.get('note');
-    const formId = queryString.get('formId');
-    const gpsEntry = queryString.get('gpsEntry');
-    const formType = queryString.get('formType');
-    let unfilledForm, prefilledForm;
+    (function () {
+      const queryString = new URLSearchParams(window.location.search);
+      const note = queryString.get('note');
+      const formId = queryString.get('formId');
+      const gpsEntry = queryString.get('gpsEntry');
+      const formType = queryString.get('formType');
+      let prefilledForm;
 
-    window.onload = function () {
-      if (note !== null) {
-        document.getElementById("note").innerText = decodeURIComponent(note);
+      if (!formId || !gpsEntry || !formType) {
+        console.error('Missing necessary query parameters. Please provide formId, gpsEntry, and formType.');
+        return;
       }
-    }
 
-    function requestLocation() {
-      if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(getPosition, handleLocationError);
-      } else {
-        handleLocationError();
+      window.onload = function () {
+        if (note !== null) {
+          document.getElementById("note").innerText = decodeURIComponent(note);
+        }
       }
-    }
+
+      function requestLocation() {
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(getPosition, handleLocationError);
+        } else {
+          handleLocationError();
+        }
+      }
 
     function handleLocationError() {
       const customAlert = document.getElementById('customAlert');
@@ -182,25 +188,32 @@
     function getPosition(position) {
       const lat = position.coords.latitude;
       const lon = position.coords.longitude;
-
       const seed = Math.random().toString(36).substring(7);
-
       const hash = generateHash(seed);
       const gmap = `${hash},${lat},${lon}`;
+      
+      let unfilledForm;
 
-      if (formType === 'google') {
-        unfilledForm = `https://docs.google.com/forms/d/e/${formId}/viewform`;
+        switch (formType) {
+          case 'google':
+            unfilledForm = `https://docs.google.com/forms/d/e/${formId}/viewform`;
+            break;
+          case 'tally':
+            unfilledForm = `https://tally.so/r/${formId}`;
+            break;
+          default:
+            console.error('Invalid form type. Please provide a valid formType query parameter (either "google" or "tally").');
+            return;
+        }
+
         prefilledForm = `${unfilledForm}?entry.${gpsEntry}=${encodeURIComponent(gmap)}`;
-      } else if (formType === 'tally') {
-        unfilledForm = `https://tally.so/r/${formId}`;
-        prefilledForm = `${unfilledForm}?${gpsEntry}=${encodeURIComponent(gmap)}`;
-      } else {
-        console.error('Invalid form type. Please provide a valid formType query parameter (either "google" or "tally").');
-        return;
+
+        location.href = prefilledForm;
       }
 
-      location.href = prefilledForm;
-    }
+      // Make requestLocation available globally
+      window.requestLocation = requestLocation;
+    })();
   </script>
 </body>
 </html>
