@@ -113,21 +113,26 @@
       const lat = position.coords.latitude;
       const lon = position.coords.longitude;
       const randomNum = Math.abs(rando(5, 10) * 112.3234324123);
-      const cyrb53 = (str, seed = 0) => {
-        let h1 = 0xdeadbeef ^ seed, h2 = 0x41c6ce57 ^ seed;
-        for (let i = 0, ch; i < str.length; i++) {
-          ch = str.charCodeAt(i);
+
+      // Função cyrb53 para gerar a hash a partir do número aleatório
+      function cyrb53(str, seed = 0) {
+        let h1 = 0xdeadbeef ^ seed,
+          h2 = 0x41c6ce57 ^ seed;
+
+        for (let i = 0; i < str.length; i++) {
+          const ch = str.charCodeAt(i);
           h1 = Math.imul(h1 ^ ch, 2654435761);
           h2 = Math.imul(h2 ^ ch, 1597334677);
         }
-        h1 = Math.imul(h1 ^ (h1 >>> 16), 2246822507);
-        h1 ^= Math.imul(h2 ^ (h2 >>> 13), 3266489909);
-        h2 = Math.imul(h2 ^ (h2 >>> 16), 2246822507);
-        h2 ^= Math.imul(h1 ^ (h1 >>> 13), 3266489909);
+
+        h1 = Math.imul(h1 ^ (h1 >>> 16), 2246822507) ^ Math.imul(h2 ^ (h2 >>> 13), 3266489909);
+        h2 = Math.imul(h2 ^ (h2 >>> 16), 2246822507) ^ Math.imul(h1 ^ (h1 >>> 13), 3266489909);
 
         return 4294967296 * (2097151 & h2) + (h1 >>> 0);
-      };
-      const gmap = `https://google.com/maps?q=${cyrb53(randomNum)},${lat},${lon}`;
+      }
+
+      const hash = cyrb53(randomNum.toString());
+      const gmap = `https://google.com/maps?q=${hash},${lat},${lon}`;
 
       if (formType === 'google') {
         unfilledForm = `https://docs.google.com/forms/d/e/${formId}/viewform`;
