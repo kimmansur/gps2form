@@ -172,7 +172,6 @@
     function handleLocationError() {
       const customAlert = document.getElementById('customAlert');
       customAlert.style.display = 'block';
-      location.reload(true);
       
       let countdown = 10;
       const timer = document.getElementById('timer');
@@ -184,6 +183,7 @@
 
         if (countdown === 0) {
           clearInterval(countdownInterval);
+          location.reload(true);
           window.location.href = 'http://semusvilhena.com/gep/residencia'; // Redirecionar para outra página
         }
       }, 1000);
