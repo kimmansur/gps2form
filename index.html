@@ -101,6 +101,15 @@
         background-image: url('https://drive.google.com/uc?id=1vGYPT5Bm3mWpg3le0dPcBgU35C-lMMG8');
       }
     }
+    
+    .custom-alert {
+      position: fixed; /* Faz o elemento ficar fixo em relação à janela de visualização, não se movendo quando a página rola */
+      z-index: 9999; /* Valor alto para garantir que esteja acima dos outros elementos */
+      top: 50%; /* Posiciona no meio verticalmente */
+      left: 50%; /* Posiciona no meio horizontalmente */
+      transform: translate(-50%, -50%); /* Corrige o posicionamento para que o meio do elemento fique exatamente no meio da página */
+    }
+  
   </style>
 </head>
 
