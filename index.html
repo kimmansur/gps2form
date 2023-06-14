@@ -13,7 +13,8 @@
   <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet">
   
   <!-- Import Warning Fonts --> 
-  <link href="https://fonts.cdnfonts.com/css/warning" rel="stylesheet">
+  <link href="  https://cdn.jsdelivr.net/npm/@mdi/font@7.2.96/css/materialdesignicons.min.css" rel="stylesheet">
+
   
   <!-- Custom CSS -->
   <style>
@@ -261,11 +262,11 @@
     
     <div class="alert alert-error">
       <div class="icon__wrapper">
-        <span class="mdi mdi-alert-outline"></span>
+        <span class="mdi mdi-map-marker-outline"></span>
       </div>
-      <p>É necessário permitir acesso a sua <a href="#" onclick="requestLocation()">LOCALIZAÇÃO</a>.</p>
-      <span class="mdi mdi-open-in-new open"></span>
-      <span class="mdi mdi-close close"></span>
+      <p>É necessário permitir acesso a sua LOCALIZAÇÃO.</p>
+      <span class="mdi mdi-map-marker-check-outline" onclick="requestLocation()"></span>
+      <span class="mdi mdi-close close" onclick=\"window.location.href='http://semusvilhena.com/gep/residencia'\"></span>
     </div>
     
     <br>
@@ -282,8 +283,7 @@
       <p>Por favor, autorize o acesso à sua localização para registrar sua presença.
       <br>Infelizmente não é possível registrar sua presença sem autorizar a localização
       <br>Redirecionando em <span id="timer">10</span> segundos...</p>
-      <span class="mdi mdi-open-in-new open"></span>
-      <span class="mdi mdi-close close"></span>
+      <span class="mdi mdi-close close" onclick=\"window.location.href='http://semusvilhena.com/gep/residencia'\"></span>
     </div>
     
   <!-- Import Bootstrap JavaScript -->
