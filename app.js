@@ -45,10 +45,27 @@ window.onload = function() {
     if (!checkDate()) {
         var nextDate = getNextDate();
         if (nextDate) {
-            document.getElementById("app").innerHTML = "<h1>Registro de presença não está disponível neste momento.</h1>" +
-            "<p>Próxima data de realização de presença: " + nextDate.toISOString().slice(0,10) + "</p>";
+            // Formata a data em Dia/Mês/Ano
+            var day = nextDate.getDate();
+            var month = nextDate.getMonth() + 1; // o índice do mês começa em 0
+            var year = nextDate.getFullYear();
+            var formattedDate = day + "/" + month + "/" + year;
+
+            document.getElementById("app").innerHTML = "<div class='alert alert-error'>" + 
+            "<div class='icon__wrapper'>" +
+            "<span class='mdi mdi-map-marker-outline'></span>" +
+            "</div>" +
+            "<p>Registro de presença não está disponível neste momento.<br>" +
+            "Próxima data de realização de presença: " + formattedDate + "</p>" +
+            "</div>"
         } else {
-            document.getElementById("app").innerHTML = "<h1>Registro de presença não está disponível neste momento.</h1>";
+            document.getElementById("app").innerHTML = "<div class='alert alert-error'>" +
+            "<div class='icon__wrapper'>" +
+            "<span class='mdi mdi-map-marker-outline'></span>" +
+            "</div>" +
+            "<p>Registro de presença não está disponível neste momento.<br>" +
+            "Não há mais datas de realização de presença.</p>" +
+            "</div>"
         }
     } else {
         (function () {
