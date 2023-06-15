@@ -51,7 +51,8 @@ window.onload = function() {
             var year = nextDate.getFullYear();
             var formattedDate = day + "/" + month + "/" + year;
 
-            document.getElementById("app").innerHTML = "<div class='alert alert-error'>" + 
+            document.getElementById("app").innerHTML = "<div id='customAlert' class='custom-alert'>" +
+            "<div class='alert alert-error'>" + 
             "<div class='icon__wrapper'>" +
             "<span class='mdi mdi-map-marker-outline'></span>" +
             "</div>" +
@@ -59,7 +60,8 @@ window.onload = function() {
             "Próxima data de realização de presença: " + formattedDate + "</p>" +
             "</div>"
         } else {
-            document.getElementById("app").innerHTML = "<div class='alert alert-error'>" +
+            document.getElementById("app").innerHTML = "<div id='customAlert' class='custom-alert'>" +
+             "<div class='alert alert-error'>" +
             "<div class='icon__wrapper'>" +
             "<span class='mdi mdi-map-marker-outline'></span>" +
             "</div>" +
