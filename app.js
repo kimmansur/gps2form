@@ -25,91 +25,112 @@ function checkDate() {
     }
 }
 
+// Função para encontrar a próxima data permitida
+function getNextDate() {
+    var now = new Date();
+    var nextDate = null;
+
+    for (var i = 0; i < allowedDates.length; i++) {
+        var currentDate = new Date(allowedDates[i]);
+        if (currentDate > now) {
+            nextDate = currentDate;
+            break;
+        }
+    }
+
+    return nextDate;
+}
+
 window.onload = function() {
-if (!checkDate()) {
-    document.getElementById("app").innerHTML = "<h1>Registro de presença não está disponível neste momento.</h1>";
-} else {
-    (function () {
-        const queryString = new URLSearchParams(window.location.search);
-        const note = queryString.get('note');
-        const formId = queryString.get('formId');
-        const gpsEntry = queryString.get('gpsEntry');
-        const formType = queryString.get('formType');
-        let prefilledForm;
-        
-        if (!formId || !gpsEntry || !formType) {
-            console.error('Missing necessary query parameters. Please provide formId, gpsEntry, and formType.');
-            return;
-        }
-        
-    window.onload = function () {
-        if (note !== null) {
-            document.getElementById("note").innerText = decodeURIComponent(note);
-        }
-    }
-    
-    function requestLocation() {
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(getPosition, handleLocationError);
+    if (!checkDate()) {
+        var nextDate = getNextDate();
+        if (nextDate) {
+            document.getElementById("app").innerHTML = "<h1>Registro de presença não está disponível neste momento.</h1>" +
+            "<p>Próxima data de realização de presença: " + nextDate.toISOString().slice(0,10) + "</p>";
         } else {
-            handleLocationError();
+            document.getElementById("app").innerHTML = "<h1>Registro de presença não está disponível neste momento.</h1>";
         }
-    }
-    
-    function handleLocationError() {
-        const customAlert = document.getElementById('customAlert');
-        customAlert.style.display = 'block';
-        
-        let countdown = 10;
-        const timer = document.getElementById('timer');
-        timer.innerText = countdown;
-        
-        const countdownInterval = setInterval(function() {
-            countdown--;
-            timer.innerText = countdown;
+    } else {
+        (function () {
+            const queryString = new URLSearchParams(window.location.search);
+            const note = queryString.get('note');
+            const formId = queryString.get('formId');
+            const gpsEntry = queryString.get('gpsEntry');
+            const formType = queryString.get('formType');
+            let prefilledForm;
             
-            if (countdown === 0) {
-                clearInterval(countdownInterval);
-                location.reload(true);
-                window.location.href = 'http://semusvilhena.com/gep/residencia'; // Redirecionar para outra página
+            if (!formId || !gpsEntry || !formType) {
+                console.error('Missing necessary query parameters. Please provide formId, gpsEntry, and formType.');
+                return;
             }
-        }, 1000);
-    }
-
-    function generateHash(seed) {
-        const timestamp = new Date().toISOString();
-        const message = seed + timestamp;
-        const hash = sha256(message);
-        return hash;
-    }
-    function getPosition(position) {
-        const lat = position.coords.latitude;
-        const lon = position.coords.longitude;
-        const seed = Math.random().toString(36).substring(7);
-        const hash = generateHash(seed);
-        const gmap = `${hash},${lat},${lon}`;
         
-        let unfilledForm;
+            window.onload = function () {
+                if (note !== null) {
+                    document.getElementById("note").innerText = decodeURIComponent(note);
+                }
+            }
+            
+            function requestLocation() {
+                if (navigator.geolocation) {
+                    navigator.geolocation.getCurrentPosition(getPosition, handleLocationError);
+                } else {
+                    handleLocationError();
+                }
+            }
+            
+            function handleLocationError() {
+                const customAlert = document.getElementById('customAlert');
+                customAlert.style.display = 'block';
+        
+                let countdown = 10;
+                const timer = document.getElementById('timer');
+                timer.innerText = countdown;
+        
+                const countdownInterval = setInterval(function() {
+                    countdown--;
+                    timer.innerText = countdown;
+            
+                    if (countdown === 0) {
+                        clearInterval(countdownInterval);
+                        location.reload(true);
+                        window.location.href = 'http://semusvilhena.com/gep/residencia'; // Redirecionar para outra página
+                    }
+                }, 1000);
+            }
 
-        switch (formType) {
-            case 'google':
-                unfilledForm = `https://docs.google.com/forms/d/e/${formId}/viewform`;
-                break;
-            case 'tally':
-                unfilledForm = `https://tally.so/r/${formId}`;
-                break;
+            function generateHash(seed) {
+                const timestamp = new Date().toISOString();
+                const message = seed + timestamp;
+                const hash = sha256(message);
+                return hash;
+            }
+    
+            function getPosition(position) {
+                const lat = position.coords.latitude;
+                const lon = position.coords.longitude;
+                const seed = Math.random().toString(36).substring(7);
+                const hash = generateHash(seed);
+                const gmap = `${hash},${lat},${lon}`;
+                let unfilledForm;
                 
-        default:
-            console.error('Invalid form type. Please provide a valid formType query parameter (either "google" or "tally").');
-            return;
-        }
+            switch (formType) {
+                case 'google':
+                    unfilledForm = `https://docs.google.com/forms/d/e/${formId}/viewform`;
+                break;
+                case 'tally':
+                    unfilledForm = `https://tally.so/r/${formId}`;
+                break;
+                default:
+                    console.error('Invalid form type. Please provide a valid formType query parameter (either "google" or "tally").');
+                    return;
+                }
         
-        prefilledForm = `${unfilledForm}?entry.${gpsEntry}=${encodeURIComponent(gmap)}`;
-        location.href = prefilledForm;
-        }
-
-  // Make requestLocation available globally
-  window.requestLocation = requestLocation;
-  })();
-  }
-  }
+                prefilledForm = `${unfilledForm}?entry.${gpsEntry}=${encodeURIComponent(gmap)}`;
+                location.href = prefilledForm;
+            }
+            
+            // Make requestLocation available globally
+            window.requestLocation = requestLocation;
+        })();
+    }
+}
