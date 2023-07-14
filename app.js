@@ -1,7 +1,7 @@
 // Custom Functions
 
 // // Definindo as datas permitidas
-// var allowedDates = ["2023-07-07", "2023-07-14", "2023-07-14", "2023-08-03", "2023-09-01", "2023-10-06", "2023-11-03", "2023-12-01"];
+// var allowedDates = ["2023-07-07", "2023-08-03", "2023-07-14", "2023-09-01", "2023-10-06", "2023-11-03", "2023-12-01"];
 // // Definindo o horário de inicio e término
 // var startTime = 13.83; // 13:50
 // var endTime = 19; // 19:00
@@ -25,7 +25,7 @@
 //     }
 // }
 
-// Função para encontrar a próxima data permitida
+// // Função para encontrar a próxima data permitida
 // function getNextDate() {
 //     var now = new Date();
 //     var nextDate = null;
@@ -41,14 +41,6 @@
 //     return nextDate;
 // }
 
-function setNote() {
-    const queryString = new URLSearchParams(window.location.search);
-    const note = queryString.get('note');
-    if (note !== null) {
-        document.getElementById("note").innerText = decodeURIComponent(note);
-    }
-}
-
 window.onload = function() {
     // if (!checkDate()) {
     //     var nextDate = getNextDate();
@@ -59,24 +51,24 @@ window.onload = function() {
     //         var year = nextDate.getFullYear();
     //         var formattedDate = day + "/" + month + "/" + year;
 
-        //     // document.getElementById("app").innerHTML = "<div id='customAlert' class='custom-alert'>" +
-        //     "<div class='alert alert-error'>" + 
-        //     "<div class='icon__wrapper'>" +
-        //     "<span class='mdi mdi-map-marker-outline'></span>" +
-        //     "</div>" +
-        //     "<p>Registro de presença não está disponível neste momento.<br>" +
-        //     "Próxima data de realização de presença: " + formattedDate + "</p>" +
-        //     "</div>";
-        // } else {
-        //     document.getElementById("app").innerHTML = "<div id='customAlert' class='custom-alert'>" +
-        //      "<div class='alert alert-error'>" +
-        //     "<div class='icon__wrapper'>" +
-        //     "<span class='mdi mdi-map-marker-outline'></span>" +
-        //     "</div>" +
-        //     "<p>Registro de presença não está disponível neste momento.<br>" +
-        //     "Não há mais datas de realização de presença.</p>" +
-        //     "</div>";
-        // }
+    //         document.getElementById("app").innerHTML = "<div id='customAlert' class='custom-alert'>" +
+    //         "<div class='alert alert-error'>" + 
+    //         "<div class='icon__wrapper'>" +
+    //         "<span class='mdi mdi-map-marker-outline'></span>" +
+    //         "</div>" +
+    //         "<p>Registro de presença não está disponível neste momento.<br>" +
+    //         "Próxima data de realização de presença: " + formattedDate + "</p>" +
+    //         "</div>"
+    //     } else {
+    //         document.getElementById("app").innerHTML = "<div id='customAlert' class='custom-alert'>" +
+    //          "<div class='alert alert-error'>" +
+    //         "<div class='icon__wrapper'>" +
+    //         "<span class='mdi mdi-map-marker-outline'></span>" +
+    //         "</div>" +
+    //         "<p>Registro de presença não está disponível neste momento.<br>" +
+    //         "Não há mais datas de realização de presença.</p>" +
+    //         "</div>"
+    //     }
     // } else {
         (function () {
             const queryString = new URLSearchParams(window.location.search);
@@ -91,8 +83,11 @@ window.onload = function() {
                 return;
             }
         
-            // Chama a função setNote diretamente
-            setNote();
+            window.onload = function () {
+                if (note !== null) {
+                    document.getElementById("note").innerText = decodeURIComponent(note);
+                }
+            }
             
             function requestLocation() {
                 if (navigator.geolocation) {
