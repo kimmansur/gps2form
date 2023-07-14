@@ -1,7 +1,7 @@
 // Custom Functions
 
 // Definindo as datas permitidas
-var allowedDates = ["2023-07-07", "2023-07-14", "2023-08-03", "2023-09-01", "2023-10-06", "2023-11-03", "2023-12-01"];
+var allowedDates = ["2023-07-07", "2023-07-14", "2023-07-14", "2023-08-03", "2023-09-01", "2023-10-06", "2023-11-03", "2023-12-01"];
 // Definindo o horário de inicio e término
 var startTime = 13.83; // 13:50
 var endTime = 19; // 19:00
