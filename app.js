@@ -41,6 +41,14 @@ function getNextDate() {
     return nextDate;
 }
 
+function setNote() {
+    const queryString = new URLSearchParams(window.location.search);
+    const note = queryString.get('note');
+    if (note !== null) {
+        document.getElementById("note").innerText = decodeURIComponent(note);
+    }
+}
+
 window.onload = function() {
     if (!checkDate()) {
         var nextDate = getNextDate();
@@ -58,7 +66,7 @@ window.onload = function() {
             "</div>" +
             "<p>Registro de presença não está disponível neste momento.<br>" +
             "Próxima data de realização de presença: " + formattedDate + "</p>" +
-            "</div>"
+            "</div>";
         } else {
             document.getElementById("app").innerHTML = "<div id='customAlert' class='custom-alert'>" +
              "<div class='alert alert-error'>" +
@@ -67,7 +75,7 @@ window.onload = function() {
             "</div>" +
             "<p>Registro de presença não está disponível neste momento.<br>" +
             "Não há mais datas de realização de presença.</p>" +
-            "</div>"
+            "</div>";
         }
     } else {
         (function () {
@@ -83,11 +91,8 @@ window.onload = function() {
                 return;
             }
         
-            window.onload = function () {
-                if (note !== null) {
-                    document.getElementById("note").innerText = decodeURIComponent(note);
-                }
-            }
+            // Chama a função setNote diretamente
+            setNote();
             
             function requestLocation() {
                 if (navigator.geolocation) {
