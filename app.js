@@ -59,25 +59,25 @@ window.onload = function() {
             var year = nextDate.getFullYear();
             var formattedDate = day + "/" + month + "/" + year;
 
-            document.getElementById("app").innerHTML = "<div id='customAlert' class='custom-alert'>" +
-            "<div class='alert alert-error'>" + 
-            "<div class='icon__wrapper'>" +
-            "<span class='mdi mdi-map-marker-outline'></span>" +
-            "</div>" +
-            "<p>Registro de presença não está disponível neste momento.<br>" +
-            "Próxima data de realização de presença: " + formattedDate + "</p>" +
-            "</div>";
-        } else {
-            document.getElementById("app").innerHTML = "<div id='customAlert' class='custom-alert'>" +
-             "<div class='alert alert-error'>" +
-            "<div class='icon__wrapper'>" +
-            "<span class='mdi mdi-map-marker-outline'></span>" +
-            "</div>" +
-            "<p>Registro de presença não está disponível neste momento.<br>" +
-            "Não há mais datas de realização de presença.</p>" +
-            "</div>";
-        }
-    } else {
+        //     // document.getElementById("app").innerHTML = "<div id='customAlert' class='custom-alert'>" +
+        //     "<div class='alert alert-error'>" + 
+        //     "<div class='icon__wrapper'>" +
+        //     "<span class='mdi mdi-map-marker-outline'></span>" +
+        //     "</div>" +
+        //     "<p>Registro de presença não está disponível neste momento.<br>" +
+        //     "Próxima data de realização de presença: " + formattedDate + "</p>" +
+        //     "</div>";
+        // } else {
+        //     document.getElementById("app").innerHTML = "<div id='customAlert' class='custom-alert'>" +
+        //      "<div class='alert alert-error'>" +
+        //     "<div class='icon__wrapper'>" +
+        //     "<span class='mdi mdi-map-marker-outline'></span>" +
+        //     "</div>" +
+        //     "<p>Registro de presença não está disponível neste momento.<br>" +
+        //     "Não há mais datas de realização de presença.</p>" +
+        //     "</div>";
+        // }
+    // } else {
         (function () {
             const queryString = new URLSearchParams(window.location.search);
             const note = queryString.get('note');
